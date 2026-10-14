@@ -1,0 +1,10 @@
+{
+  "name": "@radclub/engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Общая игровая логика: контент, бой П.Р.И.Ц.Е.Л., инвентарь, квесты. Используется и клиентом, и сервером.",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

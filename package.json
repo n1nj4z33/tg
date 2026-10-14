@@ -1,0 +1,26 @@
+{
+  "name": "radclub",
+  "private": true,
+  "type": "module",
+  "description": "РАДКЛУБ — бойцовский клуб на руинах мира. Telegram Mini App.",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @radclub/web",
+    "dev:server": "npm run dev -w @radclub/server",
+    "build": "npm run build -w @radclub/web",
+    "start": "npm run start -w @radclub/server",
+    "test": "vitest run",
+    "typecheck": "tsc -p packages/engine && tsc -p apps/web && tsc -p apps/server"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}
