@@ -1,0 +1,333 @@
+.combat {
+  position: relative;
+  max-width: 560px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 8px calc(8px + var(--safe-bottom));
+  overflow-y: auto;
+}
+
+.combat__flash {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  animation: combat-flash 0.45s ease-out both;
+}
+
+.combat__flash--hurt {
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(200, 0, 0, 0.55));
+}
+
+.combat__flash--crit {
+  background: radial-gradient(ellipse at center, rgba(255, 230, 120, 0.25), rgba(255, 60, 0, 0.35));
+}
+
+.combat__flash--heal {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(77, 255, 124, 0.35));
+}
+
+.combat__flash--claw {
+  background:
+    linear-gradient(115deg, transparent 30%, rgba(170, 0, 0, 0.75) 31%, rgba(170, 0, 0, 0.75) 32.5%, transparent 33.5%),
+    linear-gradient(115deg, transparent 44%, rgba(170, 0, 0, 0.75) 45%, rgba(170, 0, 0, 0.75) 46.5%, transparent 47.5%),
+    linear-gradient(115deg, transparent 58%, rgba(170, 0, 0, 0.75) 59%, rgba(170, 0, 0, 0.75) 60.5%, transparent 61.5%),
+    radial-gradient(ellipse at center, transparent 35%, rgba(200, 0, 0, 0.45));
+}
+
+@keyframes combat-flash {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.combat__stage {
+  flex: none;
+  height: min(46vh, 380px);
+  min-height: 250px;
+}
+
+.combat__enemy-hud {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  right: 10px;
+  z-index: 2;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+}
+
+.combat__enemy-name {
+  font-family: var(--font-head);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--amber);
+}
+
+.combat__enemy {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  height: 74%;
+  aspect-ratio: 240 / 300;
+  transform: translateX(-38%);
+}
+
+.combat__fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.combat__player-hud {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  width: 42%;
+  z-index: 2;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 4px;
+}
+
+.combat__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.combat__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.combat__log {
+  min-height: 70px;
+}
+
+/* ── Выстрелы ── */
+.fx-bullet {
+  stroke: #ffe58a;
+  stroke-width: 2;
+  stroke-dasharray: 18 400;
+  animation: tracer 0.18s linear both;
+  filter: drop-shadow(0 0 3px #ffb43a);
+}
+
+.fx-laser {
+  stroke: #ff3b2f;
+  stroke-width: 4;
+  animation: beam 0.3s ease-out both;
+  filter: drop-shadow(0 0 6px #ff3b2f);
+}
+
+.fx-plasma {
+  stroke: #7dff3a;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 10 400;
+  animation: tracer 0.24s linear both;
+  filter: drop-shadow(0 0 8px #7dff3a);
+}
+
+.fx-slash {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 120;
+  animation: slash 0.25s ease-out both;
+  filter: drop-shadow(0 0 4px #fff);
+}
+
+@keyframes tracer {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -420; }
+}
+
+@keyframes beam {
+  0% { opacity: 1; stroke-width: 6; }
+  100% { opacity: 0; stroke-width: 1; }
+}
+
+@keyframes slash {
+  from { stroke-dashoffset: 120; opacity: 1; }
+  to { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.fx-float {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 19px;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: #000;
+  stroke-width: 4px;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: float-up 1.2s ease-out both;
+}
+
+.fx-float--dmg { fill: #fff; }
+.fx-float--crit { fill: #ffdd33; font-size: 29px; }
+.fx-float--miss { fill: #9b917f; font-size: 15px; }
+.fx-float--heal { fill: #4dff7c; }
+.fx-float--hurt { fill: #ff3b2f; font-size: 24px; }
+
+@keyframes float-up {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  15% { transform: translateY(-8px) scale(1.15); opacity: 1; }
+  100% { transform: translateY(-46px) scale(1); opacity: 0; }
+}
+
+/* ── Панель прицеливания ── */
+.vats {
+  padding: 8px;
+}
+
+.vats__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.vats__weapon {
+  color: var(--green-dim);
+  text-align: right;
+}
+
+.vats__grid {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 1fr;
+  gap: 4px;
+  align-items: stretch;
+}
+
+.vats__col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.vats__col:last-child .vats-part {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.vats__body {
+  aspect-ratio: 240 / 300;
+  align-self: center;
+}
+
+.vats-part {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 2px 4px;
+  border: 1px solid var(--green-dim);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--green);
+  text-align: left;
+  cursor: crosshair;
+}
+
+.vats-part:disabled {
+  opacity: 0.55;
+}
+
+.vats-part--queued {
+  background: var(--green-faint);
+  border-color: var(--green);
+  box-shadow: 0 0 8px rgba(77, 255, 124, 0.4);
+}
+
+.vats-part--crippled .vats-part__label {
+  color: #ff8577;
+}
+
+.vats-part__chance {
+  flex: none;
+  min-width: 34px;
+  padding: 0 3px;
+  font-size: 19px;
+  text-align: center;
+  color: var(--amber);
+  background: #000;
+  border: 1px solid #3a342b;
+  border-radius: 2px;
+}
+
+.vats-part__label {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.vats-part__count {
+  display: block;
+  color: var(--amber);
+}
+
+.vats__ap {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+.vats__pip {
+  flex: 1;
+  max-width: 22px;
+  height: 10px;
+  border: 1px solid var(--green-dim);
+  border-radius: 2px;
+}
+
+.vats__pip--on {
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+}
+
+.vats__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.vats__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px 2px 2px;
+  border: 1px solid var(--green-dim);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--green);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.vats__item:disabled {
+  opacity: 0.4;
+}
+
+.vats__item-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.vats__blink {
+  animation: blink 0.6s infinite;
+}

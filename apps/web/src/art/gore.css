@@ -1,0 +1,61 @@
+/* Частица летит по дуге: вверх с замедлением, затем падает с ускорением и остаётся на полу. */
+.gore__p {
+  animation-name: gore-arc;
+  animation-fill-mode: both;
+}
+
+@keyframes gore-arc {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.5);
+    animation-timing-function: cubic-bezier(0.15, 0.6, 0.4, 1);
+    opacity: 1;
+  }
+  35% {
+    transform: translate(calc(var(--dx) * 0.5px), calc(var(--up) * 1px)) rotate(calc(var(--r) * 0.4deg)) scale(1);
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.4);
+  }
+  100% {
+    transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px)) rotate(calc(var(--r) * 1deg)) scale(1);
+    opacity: 0.95;
+  }
+}
+
+.gore__pool {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gore-pool 1.8s ease-out both;
+}
+
+@keyframes gore-pool {
+  from { transform: scale(0, 0); opacity: 0; }
+  to { transform: scale(1, 1); opacity: 0.85; }
+}
+
+.gore__flash {
+  animation: gore-flash 0.35s ease-out both;
+}
+
+@keyframes gore-flash {
+  from { opacity: 0.85; transform: scale(0.3); }
+  to { opacity: 0; transform: scale(2.2); }
+}
+
+.hit-splat__ring {
+  animation: gore-flash 0.4s ease-out both;
+}
+
+.hit-splat__drop {
+  animation: hit-drop 0.55s ease-out both;
+}
+
+@keyframes hit-drop {
+  from { transform: translate(0, 0); opacity: 1; }
+  to { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+}
+
+/* Отстреленная конечность летит по той же дуге, что и ошмётки. */
+.part--severed {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gore-arc 1.1s both;
+}

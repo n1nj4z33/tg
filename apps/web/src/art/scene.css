@@ -1,0 +1,149 @@
+.scene {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 2px solid #000;
+  background: #000;
+}
+
+.scene__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scene__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.65)),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 3px);
+}
+
+.scene__content {
+  position: relative;
+  height: 100%;
+}
+
+.scene__particles circle {
+  animation-name: drift;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.scene__particles--snow circle,
+.scene__particles--drip circle {
+  animation-name: fall;
+}
+
+.scene__particles--ember circle,
+.scene__particles--spore circle {
+  animation-name: rise;
+}
+
+@keyframes drift {
+  from { transform: translate(-30px, 0); }
+  50% { transform: translate(30px, -10px); }
+  to { transform: translate(-30px, 0); }
+}
+
+@keyframes fall {
+  from { transform: translate(0, -320px); }
+  to { transform: translate(-20px, 20px); }
+}
+
+@keyframes rise {
+  from { transform: translate(0, 40px); opacity: 0; }
+  20% { opacity: 0.9; }
+  to { transform: translate(14px, -300px); opacity: 0; }
+}
+
+.scene__fog {
+  animation: fog 20s ease-in-out infinite alternate;
+}
+
+@keyframes fog {
+  to { transform: translateX(40px); }
+}
+
+.scene__twinkle {
+  animation: blink 1.7s infinite;
+}
+
+.scene__flicker {
+  animation: flicker 3.2s infinite;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 62%, 64%, 100% { opacity: 1; }
+  20%, 63% { opacity: 0.25; }
+}
+
+.scene__pulse {
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.45; }
+}
+
+.scene__alarm {
+  animation: alarm 1s steps(2) infinite;
+}
+
+.scene__alarm--2 {
+  animation-delay: 0.5s;
+}
+
+@keyframes alarm {
+  50% { opacity: 0; }
+}
+
+.scene__aurora {
+  animation: aurora 9s ease-in-out infinite alternate;
+}
+
+.scene__aurora--2 {
+  animation-duration: 13s;
+}
+
+@keyframes aurora {
+  to { transform: translate(-30px, 8px) scaleY(1.2); opacity: 0.6; }
+}
+
+.scene__searchlight {
+  transform-box: view-box;
+  transform-origin: 60px 210px;
+  animation: sweep 7s ease-in-out infinite alternate;
+}
+
+.scene__searchlight--2 {
+  transform-origin: 340px 210px;
+  animation-duration: 9s;
+}
+
+@keyframes sweep {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(14deg); }
+}
+
+.scene__ripple {
+  animation: fog 4s ease-in-out infinite alternate;
+}
+
+.scene__meteor {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.scene__ufo {
+  animation: ufo 14s ease-in-out infinite;
+}
+
+@keyframes ufo {
+  0%, 100% { transform: translate(0, 0); }
+  40% { transform: translate(180px, 20px); }
+  45% { transform: translate(184px, 18px); }
+  70% { transform: translate(60px, -10px); }
+}

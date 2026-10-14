@@ -64,7 +64,7 @@ describe('бой', () => {
     rat.hp = 1;
     // ищем сид, при котором выстрел попадает
     for (let seed = 1; seed < 200; seed++) {
-      const target = structuredClone(rat);
+      const target = JSON.parse(JSON.stringify(rat)) as typeof rat;
       const e = performAttack(player, target, 'head', 'player', seededRng(seed));
       if (e.kind === 'attack' && e.hit) {
         expect(e.death).toBe('headExplode');

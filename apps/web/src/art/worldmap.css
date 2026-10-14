@@ -1,0 +1,70 @@
+.worldmap {
+  display: block;
+  width: 100%;
+  font-family: var(--font-term);
+}
+
+.worldmap__land path {
+  fill: rgba(77, 255, 124, 0.07);
+  stroke: var(--green-dim);
+  stroke-width: 0.4;
+}
+
+.worldmap__label {
+  font-size: 2.6px;
+  fill: var(--green-dim);
+  letter-spacing: 0.3px;
+}
+
+.worldmap__route {
+  stroke: rgba(77, 255, 124, 0.18);
+  stroke-width: 0.3;
+  stroke-dasharray: 1 1;
+}
+
+.worldmap__route--selected {
+  stroke: var(--amber);
+  stroke-width: 0.5;
+  animation: route 1s linear infinite;
+}
+
+@keyframes route {
+  to { stroke-dashoffset: -2; }
+}
+
+.worldmap__node {
+  cursor: pointer;
+}
+
+.worldmap__hit {
+  fill: transparent;
+}
+
+.worldmap__dot {
+  fill: var(--green);
+}
+
+.worldmap__node--danger .worldmap__dot {
+  fill: var(--red);
+}
+
+.worldmap__node--selected .worldmap__dot {
+  fill: var(--amber);
+}
+
+.worldmap__ring {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 0.4;
+  animation: blink 1s infinite;
+}
+
+.worldmap__name {
+  font-size: 3.2px;
+  fill: var(--green);
+  text-anchor: middle;
+}
+
+.worldmap__node--selected .worldmap__name {
+  fill: var(--amber);
+}
