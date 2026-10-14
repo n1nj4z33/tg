@@ -31,6 +31,7 @@ export function CharacterScreen() {
   const [skillDraft, setSkillDraft] = useState<Skills>(ZERO_SKILLS);
   const [statDraft, setStatDraft] = useState<Stats>(ZERO_STATS);
   const [perkOpen, setPerkOpen] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
   const me = playerCombatant(state);
   const skillLeft = player.unspentSkillPoints - SKILL_KEYS.reduce((s, k) => s + skillDraft[k], 0);
   const statLeft = player.unspentStatPoints - STAT_KEYS.reduce((s, k) => s + statDraft[k], 0);
@@ -47,7 +48,10 @@ export function CharacterScreen() {
   };
 
   const reset = async () => {
-    if (!window.confirm('Удалить персонажа и начать заново?')) return;
+    if (!confirmReset) {
+      setConfirmReset(true);
+      return;
+    }
     try {
       replaceState(await api.reset());
     } catch (e) {
@@ -159,8 +163,8 @@ export function CharacterScreen() {
         <Readout label="Убито тварей" value={Object.values(state.kills).reduce((a, b) => a + b, 0)} />
       </Crt>
 
-      <Button variant="ghost" size="sm" onClick={reset}>
-        Начать заново
+      <Button variant={confirmReset ? 'danger' : 'ghost'} size="sm" onClick={reset}>
+        {confirmReset ? 'Точно удалить персонажа? Нажми ещё раз' : 'Начать заново'}
       </Button>
 
       {perkOpen && (
