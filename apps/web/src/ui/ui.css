@@ -511,3 +511,11 @@
 .choice-card:disabled {
   opacity: 0.4;
 }
+
+.error-box {
+  margin: 8px 0 0;
+  font: inherit;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

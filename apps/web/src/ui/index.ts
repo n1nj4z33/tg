@@ -12,3 +12,4 @@ export { Stepper } from './Stepper.tsx';
 export { Tabs } from './Tabs.tsx';
 export { Toasts } from './Toasts.tsx';
 export { ItemRow } from './ItemRow.tsx';
+export { ErrorBoundary } from './ErrorBoundary.tsx';

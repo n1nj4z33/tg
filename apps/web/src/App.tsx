@@ -10,7 +10,7 @@ import { QuestsScreen } from './screens/QuestsScreen.tsx';
 import { Hud, NavBar } from './screens/Shell.tsx';
 import { TraderScreen } from './screens/TraderScreen.tsx';
 import { useGame, type Screen } from './state/GameProvider.tsx';
-import { Toasts } from './ui/index.ts';
+import { ErrorBoundary, Toasts } from './ui/index.ts';
 import './screens/screens.css';
 
 function CurrentScreen({ screen, inZone }: { screen: Screen; inZone: boolean }) {
@@ -52,7 +52,9 @@ export function App() {
       <div className="app">
         <Hud player={state.player} />
         <main className="app__body" ref={bodyRef}>
-          <CurrentScreen screen={screen} inZone={state.expedition !== null} />
+          <ErrorBoundary resetKey={screen} onReset={() => go('hub')}>
+            <CurrentScreen screen={screen} inZone={state.expedition !== null} />
+          </ErrorBoundary>
         </main>
         <NavBar state={state} />
       </div>
@@ -60,7 +62,9 @@ export function App() {
 
   return (
     <>
-      {content}
+      <ErrorBoundary resetKey={screen} onReset={() => go('hub')}>
+        {content}
+      </ErrorBoundary>
       <Toasts />
     </>
   );
